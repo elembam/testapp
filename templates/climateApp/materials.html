@@ -3,17 +3,30 @@
 
 {% block content %}
 
-<center>
-    <h1>Data Sources</h1>
-    {% for material in materials %}
-<strong> {{ material }} </strong>
+    <center>
+        <h1>Data Sources</h1>
+        <table id="mytable" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>material</th>
+                <th>material name</th>
+                <th>producer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for material in materials %}
+                <tr>
+                    <td>{{ material }}</td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.producer }}</td>
+                </tr>
 
-        <li>{{ material.name }}</li>
-        <li>{{ material.producer }}</li>
+            {% endfor %}
+            </tbody>
 
-{% endfor %}
 
-</center>
+    </center>
 
 
 {% endblock %}
+
