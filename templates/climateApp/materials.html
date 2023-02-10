@@ -11,6 +11,7 @@
                 <th>material</th>
                 <th>material name</th>
                 <th>producer</th>
+                <th>A1-A3 - Materials (kg CO2e)</th>
             </tr>
             </thead>
             <tbody>
@@ -19,6 +20,7 @@
                     <td>{{ material }}</td>
                     <td>{{ material.name }}</td>
                     <td>{{ material.producer }}</td>
+                    <td>{{ material.cotwovalue_aonethree }}</td>
                 </tr>
 
             {% endfor %}
