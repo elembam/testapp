@@ -2,8 +2,9 @@ from django.db import models
 
 # Create your models here.
 
+
 class DataSource(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField('Data Source Name',max_length=80)
     registered_country = models.CharField(max_length=80)
 
     class Meta:
