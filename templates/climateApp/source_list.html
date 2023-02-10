@@ -5,7 +5,14 @@
 
 <center>
     <h1>Data Sources</h1>
-{{ list_sources }}
+    {% for source in list_sources %}
+<strong> {{ source }} </strong>
+
+        <li>{{ source.name }}</li>
+        <li>{{ source.registered_country }}</li>
+
+{% endfor %}
+
 </center>
 
 

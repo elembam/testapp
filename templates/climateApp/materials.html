@@ -1,0 +1,19 @@
+{% extends 'climateApp/base.html' %}
+
+
+{% block content %}
+
+<center>
+    <h1>Data Sources</h1>
+    {% for material in materials %}
+<strong> {{ material }} </strong>
+
+        <li>{{ material.name }}</li>
+        <li>{{ material.producer }}</li>
+
+{% endfor %}
+
+</center>
+
+
+{% endblock %}
