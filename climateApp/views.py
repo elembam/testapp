@@ -2,7 +2,8 @@ from django.shortcuts import render
 from .models import DataSource, Resource
 from datetime import datetime
 # Create your views here.
-
+import pandas as pd
+import numpy as np
 
 def data_sources(request):
     list_sources = DataSource.objects.all()
@@ -15,6 +16,33 @@ def material_list(request):
     return render(request, 'climateApp/materials.html', {
         'materials': materials,
     })
+
+def chart_view(request):
+    ls = DataSource.objects.all().values()
+    lr = Resource.objects.all().values()
+    resources = Resource.objects.all()
+    data = pd.DataFrame(ls)
+    data1 = pd.DataFrame(lr)
+
+
+    cotwo_value = data1['cotwovalue_aonethree'].tolist()
+    cfour_value = data1['cotwovalue_conefour'].tolist()
+    multiple= list(np.multiply(np.array(cotwo_value),np.array(cfour_value)))
+    identity = data1['id'].tolist()
+
+
+    context = {
+        'identity':identity,
+        'cotwo_value': cotwo_value,
+        'cfour_value': cfour_value,
+        'score': multiple,
+        'resources': resources,
+        "data": [1, 2, 3],
+    }
+
+    return render(request, 'climateApp/chartsJS.html', context)
+
+
 
 
 def home(request):
@@ -38,5 +66,4 @@ def home(request):
         "zone": zone,
 
     })
-
 
