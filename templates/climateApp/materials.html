@@ -7,7 +7,12 @@
 
 {% block content %}
 
+    <div class="chartBox">
+  <canvas id="myChart"></canvas>
+</div>
 
+    <br>
+    <br>
 
     <center>
         <h1>Data Sources</h1>
@@ -23,8 +28,8 @@
             <tbody>
             {% for material in materials %}
                 <tr>
-                    <td>{{ material }}</td>
                     <td>{{ material.name }}</td>
+                    <td>{{ material.material }}</td>
                     <td>{{ material.producer }}</td>
                     <td>{{ material.cotwovalue_aonethree }}</td>
                 </tr>

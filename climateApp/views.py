@@ -13,34 +13,29 @@ def data_sources(request):
 
 def material_list(request):
     materials = Resource.objects.all()
-    return render(request, 'climateApp/materials.html', {
-        'materials': materials,
-    })
-
-def chart_view(request):
     ls = DataSource.objects.all().values()
     lr = Resource.objects.all().values()
     resources = Resource.objects.all()
     data = pd.DataFrame(ls)
     data1 = pd.DataFrame(lr)
 
-
     cotwo_value = data1['cotwovalue_aonethree'].tolist()
     cfour_value = data1['cotwovalue_conefour'].tolist()
-    multiple= list(np.multiply(np.array(cotwo_value),np.array(cfour_value)))
+    multiple = list(np.multiply(np.array(cotwo_value), np.array(cfour_value)))
     identity = data1['id'].tolist()
 
-
     context = {
-        'identity':identity,
+        'identity': identity,
         'cotwo_value': cotwo_value,
         'cfour_value': cfour_value,
         'score': multiple,
         'resources': resources,
         "data": [1, 2, 3],
+        'materials': materials,
     }
+    return render(request, 'climateApp/materials.html', context)
 
-    return render(request, 'climateApp/chartsJS.html', context)
+
 
 
 

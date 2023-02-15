@@ -1,7 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <style>
+        .chartBox {
+            width: 1600px;
 
+        }
+        .chartBox2 {
+            width: 1600px;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+
+        }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FirstApp</title>
@@ -46,13 +58,59 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#mytable').DataTable({
-        dom: 'Bfrtip',
+        dom: 'lfBrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
     });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+            var df1={{identity |safe }}
+            var df2={{cotwo_value|safe }}
+            var df3={{cfour_value|safe }}
+            //setup data
+            const data = {
+                labels: [{% for item in materials %} '{{ item.producer }}', {% endfor %}] ,
+                datasets: [{
+                label: 'df',
+                data: df2,
+                borderWidth: 1
+              }, {
+                label: 'Score',
+                data: df3,
+                borderWidth: 1
+              }]
+            };
+            //----------->
+            //config
+            const config = {
+                type: 'line',
+                data,
+                options: {
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true
+                }
+              }
+            }
+            };
+
+            //render init block
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config,
+            );
+</script>
+
+<br>
+
 
 
 </body>
