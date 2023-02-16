@@ -7,6 +7,8 @@
         <div class="row">
             <div class="col">
                 <div class="card card-body">
+                    git<center> <h1> Filter materials below:</h1>
+                        <br> </center>
                     <form method="get">
                         {{ myFilter.form }}
                         <button class="btn btn-primary" type="submit">
@@ -28,9 +30,11 @@
     <br>
 
     <center>
-    <h1>List of producers:</h1>
+    <h1>List of producers:</h1> <br>
         <h3>[{% for i in resourcesFiltered %}"{{ i.producer }}" {% endfor %}],</h3>
-
+        <hr>
+<center> <h1> Material properties:</h1>
+                        <br> </center>
         <table id="mytable" class="table table-bordered">
             <thead>
             <tr>
