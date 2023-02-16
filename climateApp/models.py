@@ -4,7 +4,7 @@ from django.db import models
 
 
 class DataSource(models.Model):
-    name = models.CharField('Data Source Name',max_length=80)
+    name = models.CharField('Data Source Name', max_length=80)
     registered_country = models.CharField('Country of registration' , max_length=80, null=True)
 
     class Meta:

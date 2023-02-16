@@ -2,55 +2,60 @@
 
 
 {% block content %}
-    <div>
-        <canvas id="ownChart"></canvas>
+    <div class="chartBox">
+        <canvas id="myChart"></canvas>
+        <div class="row">
+            <div class="col">
+                <div class="card card-body">
+                    <form method="get">
+                        {{ myFilter.form }}
+                        <button class="btn btn-primary" type="submit">
+                            Search
+                        </button>
+                        <a class="btn btn-warning" href="{% url 'home' %}">Reset filter</a>
+
+                    </form>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form }}
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <br>
+    <br>
+
+    <center>
+    <h1>List of producers:</h1>
+        <h3>[{% for i in resourcesFiltered %}"{{ i.producer }}" {% endfor %}],</h3>
+
+        <table id="mytable" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>material</th>
+                <th>material name</th>
+                <th>producer</th>
+                <th>A1-A3 - Materials (kg CO2e)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for material in materials %}
+                <tr>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.material }}</td>
+                    <td>{{ material.producer }}</td>
+                    <td>{{ material.cotwovalue_aonethree }}</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
 
 
+    </center>
 
 
-    <script>
-
-
-        const labels = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-        ];
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45],
-            }]
-        };
-
-
-        const config = {
-            type: 'line',
-            data,
-            options: {}
-        };
-        const config = {
-            type: 'line',
-            data,
-            options: {}
-        };
-
-        // === include 'setup' then 'config' above ===
-
-        var ownChart = new Chart(
-            document.getElementById('ownChart'),
-            config
-        );
-    </script>
 
 
 {% endblock %}

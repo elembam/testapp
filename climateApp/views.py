@@ -5,6 +5,10 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 
+from .filters import ResourceFilter
+from .forms import ResourceForm
+
+
 def data_sources(request):
     list_sources = DataSource.objects.all()
     return render(request, 'climateApp/source_list.html', {
@@ -19,10 +23,14 @@ def material_list(request):
     data = pd.DataFrame(ls)
     data1 = pd.DataFrame(lr)
 
+
+
     cotwo_value = data1['cotwovalue_aonethree'].tolist()
     cfour_value = data1['cotwovalue_conefour'].tolist()
     multiple = list(np.multiply(np.array(cotwo_value), np.array(cfour_value)))
     identity = data1['id'].tolist()
+    myFilter = ResourceFilter(request.GET, queryset=resources)
+    resourcesFiltered = myFilter.qs
 
     context = {
         'identity': identity,
@@ -30,10 +38,13 @@ def material_list(request):
         'cfour_value': cfour_value,
         'score': multiple,
         'resources': resources,
+        'resourcesFiltered': resourcesFiltered,
         "data": [1, 2, 3],
         'materials': materials,
+        'myFilter': myFilter,
+
     }
-    return render(request, 'climateApp/materials.html', context)
+    return render(request, 'climateApp/home.html', context)
 
 
 

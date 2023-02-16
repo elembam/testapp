@@ -3,16 +3,13 @@
 <head>
     <style>
         .chartBox {
-            width: 1600px;
-
-        }
-        .chartBox2 {
-            width: 1600px;
+            width: 100vmax;
             display: grid;
-            align-items: center;
+            align-items: left;
             justify-content: center;
 
         }
+
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,59 +55,63 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#mytable').DataTable({
-        dom: 'lfBrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
+            dom: 'lfBrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
     });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-            var df1={{identity |safe }}
-            var df2={{cotwo_value|safe }}
-            var df3={{cfour_value|safe }}
-            //setup data
-            const data = {
-                labels: [{% for item in materials %} '{{ item.producer }}', {% endfor %}] ,
-                datasets: [{
-                label: 'df',
-                data: df2,
-                borderWidth: 1
-              }, {
-                label: 'Score',
-                data: df3,
-                borderWidth: 1
-              }]
-            };
-            //----------->
-            //config
-            const config = {
-                type: 'line',
-                data,
-                options: {
-                scales: {
-                    x: {
-                        stacked: true
-                    },
-                    y: {
-                        stacked: true
-                }
-              }
-            }
-            };
+    var df1 =
+    {{identity |safe }}
+    var values =
+    {{cotwo_value|safe }}
+    var df3 =
+    {{cfour_value|safe }}
+    //setup data
+    const data = {
+        labels: [{% for i in resourcesFiltered %}"{{ i.name }}",{% endfor %}],
+        datasets: [{
+            label: 'A1-A3 - Materials (kg CO2e)',
+            data: [{% for i in resourcesFiltered %}"{{ i.cotwovalue_aonethree }}",{% endfor %}],
+            borderWidth: 1
 
-            //render init block
-            const myChart = new Chart(
-                document.getElementById('myChart'),
-                config,
-            );
+        }]
+    };
+    //----------->
+    //config
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+
+    };
+
+    //render init block
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config,
+    );
+
+
 </script>
 
 <br>
-
 
 
 </body>
